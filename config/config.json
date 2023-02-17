@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin_pcr",
+    "password": "6TnkGkJ527HJFQP*",
+    "database": "REG_ALM",
+    "host": "dbpcr.database.windows.net",
+    "dialect": "mssql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mssql"
+  },
+  "production": {
+    "username": "admin_pcr",
+    "password": "6TnkGkJ527HJFQP*",
+    "database": "REG_ALM",
+    "host": "dbpcr.database.windows.net",
+    "dialect": "mssql"
+  }
+}
