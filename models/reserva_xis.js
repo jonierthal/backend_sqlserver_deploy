@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Reserva_Xis',
-    schema: 'dbo'
+    //schema: 'dbo'
   });
   return Reserva_Xis;
 };

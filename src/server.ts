@@ -10,17 +10,17 @@ const hoje = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 //Ligação com o banco de dados
 const sequelize = new Sequelize(
-    'REG_ALM',
-    'admin_pcr',
-    '6TnkGkJ527HJFQP*',
+    'almoco',
+    'jonathanerthal',
+    '!Joer1818',
      {
-       host: 'dbpcr.database.windows.net',
-       dialect: 'mssql',
-       timezone: 'America/Sao_Paulo',
+        host: 'db4free.net',
+        dialect: 'mysql',
+       //timezone: 'America/Sao_Paulo',
        dialectOptions: {
-        options: {
-            schema: 'dbo'
-        }
+       // options: {
+        //    schema: 'dbo'
+        //}
        }
    });
 
@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://192.168.0.54');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
     next();
@@ -179,6 +179,6 @@ interface Almoco {
         console.log('Tabelas sincronizadas com sucesso');
       });
 
-app.listen(8000, () => {
+app.listen(3000, () => {
     console.log('server running');
 })

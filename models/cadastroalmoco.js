@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'CadastroAlmoco',
-    schema: 'dbo'
+    //schema: 'dbo'
   });
   return CadastroAlmoco;
 };

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'AlmExt',
-    schema: 'dbo'
+    //schema: 'dbo'
   });
   return AlmExt;
 };
