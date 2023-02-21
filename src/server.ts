@@ -10,11 +10,11 @@ const hoje = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 //Ligação com o banco de dados
 const sequelize = new Sequelize(
-    'almoco',
-    'jonathanerthal',
+    'pmsxso_almocopcr',
+    'pmsxso_jonathae',
     '!Joer1818',
      {
-        host: 'db4free.net',
+        host: 'mysql-ag-br1-11.conteige.cloud',
         dialect: 'mysql',
        //timezone: 'America/Sao_Paulo',
        dialectOptions: {

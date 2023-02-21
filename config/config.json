@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "jonathanerthal",
+    "username": "pmsxso_jonathae",
     "password": "!Joer1818",
-    "database": "almoco",
-    "host": "db4free.net",
+    "database": "pmsxso_almocopcr",
+    "host": "mysql-ag-br1-11.conteige.cloud",
     "dialect": "mysql"
   },
   "test": {
-    "username": "jonathanerthal",
+    "username": "pmsxso_jonathae",
     "password": "!Joer1818",
-    "database": "almoco",
-    "host": "db4free.net",
+    "database": "pmsxso_almocopcr",
+    "host": "mysql-ag-br1-11.conteige.cloud",
     "dialect": "mssql"
   },
   "production": {
-    "username": "jonathanerthal",
+    "username": "pmsxso_jonathae",
     "password": "!Joer1818",
-    "database": "db4free.net",
-    "host": "localhost",
+    "database": "pmsxso_almocopcr",
+    "host": "mysql-ag-br1-11.conteige.cloud",
     "dialect": "mysql"
   }
 }
