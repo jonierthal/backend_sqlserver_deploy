@@ -5,7 +5,11 @@ const Funcionario = require('../models').Funcionario
 const CadastroAlmoco = require('../models').CadastroAlmoco
 const AlmExt = require('../models').AlmExt
 const ReservaXis = require('../models').Reserva_Xis
-const hoje = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+const moment = require('moment-timezone');
+moment.tz.setDefault('America/Sao_Paulo');
+const agora = moment();
+const hoje = agora.format('YYYY-MM-DD HH:mm:ss');
 
 
 //Ligação com o banco de dados
