@@ -31,8 +31,6 @@ sequelize.authenticate()
         console.log('Db connection error', e);
     })
 
-
-
 interface Almoco {
     cod_funcionario: number;
     funcionarios: {
