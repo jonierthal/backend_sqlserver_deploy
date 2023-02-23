@@ -1,4 +1,9 @@
 import express from 'express';
+import { sequelizeCon } from './config';
+require('dotenv').config();
+
+//variavel de ambiente porta do servidor remoto
+const dbPort = process.env.DB_PORT;
 
 // Configuração do servidor Express
 const appExpress = express();
@@ -14,9 +19,13 @@ appExpress.use((req, res, next) => {
     next();
   });
 
-  appExpress.listen(3000, () => {
-    console.log('server running');
-})
+  sequelizeCon.sync().then(() => {
+    appExpress.listen(dbPort, () => {
+      console.log('Servidor rodando na porta 3000!');
+    });
+  }).catch(error => {
+    console.log('Erro ao sincronizar com o banco de dados:', error);
+  });
 // ...
 
 export { appExpress };

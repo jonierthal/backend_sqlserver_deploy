@@ -1,6 +1,5 @@
 import  {Request, Response} from 'express';
 import { appExpress } from './app';
-import { Sequelize } from 'sequelize';
 import moment from 'moment-timezone';
 
 //classes
@@ -13,23 +12,6 @@ moment.tz.setDefault('America/Sao_Paulo');
 const agora = moment();
 const hoje = agora.format('YYYY-MM-DD HH:mm:ss');
 
-//Ligação com o banco de dados
-const sequelize = new Sequelize(
-    'vfqkzd_almocopcr',
-    'vfqkzd_jonathae',
-    '!Joer1818',
-     {
-        host: 'mysql-ag-br1-11.conteige.cloud',
-        dialect: 'mysql',
-   });
-
-//Autenticação do banco, e retorno do status de conexão
-sequelize.authenticate()
-    .then(() => {
-        console.log('Db connection OK!');
-    }).catch(e => {
-        console.log('Db connection error', e);
-    })
 
 interface Almoco {
     cod_funcionario: number;
@@ -162,7 +144,4 @@ interface Almoco {
         });
       });
     
-    sequelize.sync({ force: true }).then(() => {
-        console.log('Tabelas sincronizadas com sucesso');
-      });
 
