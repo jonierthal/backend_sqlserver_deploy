@@ -15,8 +15,8 @@ const hoje = agora.format('YYYY-MM-DD HH:mm:ss');
 
 //Ligação com o banco de dados
 const sequelize = new Sequelize(
-    'pmsxso_almocopcr',
-    'pmsxso_jonathae',
+    'zyioqh_almocopcr',
+    'zyioqh_jonathae',
     '!Joer1818',
      {
         host: 'mysql-ag-br1-11.conteige.cloud',
