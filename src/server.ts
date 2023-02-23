@@ -1,33 +1,18 @@
 import express, {Request, Response} from 'express';
+import { appExpress } from './app';
+import { cron } from './cron';
 import { Sequelize } from 'sequelize';
-import { exec, ExecException } from 'child_process';
+import moment from 'moment-timezone';
 
+//classes
 const Funcionario = require('../models').Funcionario
 const CadastroAlmoco = require('../models').CadastroAlmoco
 const AlmExt = require('../models').AlmExt
 const ReservaXis = require('../models').Reserva_Xis
 
-const moment = require('moment-timezone');
 moment.tz.setDefault('America/Sao_Paulo');
 const agora = moment();
 const hoje = agora.format('YYYY-MM-DD HH:mm:ss');
-const cron = require('cron');
-
-// Cria um objeto CronJob que dispara às 24:00 no horário local de Brasília todos os dias
-const job = new cron.CronJob('00 00 * * *', () => {
-    console.log(`Reiniciando o servidor às ${moment().tz('America/Sao_Paulo').format('HH:mm:ss')}`);
-  
-    // Insira aqui o código para reinicializar o servidor
-    exec('npm start', (err: ExecException | null, stdout: string, stderr: string) => {
-      if (err) {
-        console.log(`Erro ao reiniciar o servidor: ${err}`);
-        return;
-      }
-      console.log(stdout);
-    });
-  }, null, true, 'America/Sao_Paulo');
-  
-  console.log('CronJob iniciado');
 
 //Ligação com o banco de dados
 const sequelize = new Sequelize(
@@ -37,33 +22,17 @@ const sequelize = new Sequelize(
      {
         host: 'mysql-ag-br1-11.conteige.cloud',
         dialect: 'mysql',
-       //timezone: 'America/Sao_Paulo',
-       dialectOptions: {
-       // options: {
-        //    schema: 'dbo'
-        //}
-       }
    });
 
-   //Autenticação do banco, e retorno do status de conexão
-   sequelize.authenticate().then(() => {
-    console.log('Db connection OK!');
+//Autenticação do banco, e retorno do status de conexão
+sequelize.authenticate()
+    .then(() => {
+        console.log('Db connection OK!');
     }).catch(e => {
         console.log('Db connection error', e);
     })
 
-const app = express();
-const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-    next();
-  });
 
 interface Almoco {
     cod_funcionario: number;
@@ -72,7 +41,7 @@ interface Almoco {
     };
   }
 
-    app.post('/cadastro', async (req: Request, res: Response) => {
+    appExpress.post('/cadastro', async (req: Request, res: Response) => {
         console.log('POST');
         const cadastroAlmoco = req.body;
         console.log(cadastroAlmoco);
@@ -95,7 +64,7 @@ interface Almoco {
         }
     })
     
-    app.post('/alm_ext', async(req: Request, res: Response) => {
+    appExpress.post('/alm_ext', async(req: Request, res: Response) => {
         console.log('POST');
         const almocoExtra = req.body;
         console.log("infos:",almocoExtra);
@@ -121,7 +90,7 @@ interface Almoco {
         }
     })
 
-    app.post('/reserva_xis', async (req: Request, res: Response) => {
+    appExpress.post('/reserva_xis', async (req: Request, res: Response) => {
         console.log('POST');
         const reservaXis = req.body;
         console.log(reservaXis);
@@ -146,7 +115,7 @@ interface Almoco {
     })
     
     //retorna o id e nome do funcionário
-  app.get('/cadastro', async (req: Request, res: Response) => {
+  appExpress.get('/cadastro', async (req: Request, res: Response) => {
     console.log('GET');
 
     const pesquisaFuncionario = await Funcionario.findAll({
@@ -156,7 +125,7 @@ interface Almoco {
 })
 
     //retorna id,cod_funcionario,nome quando o confirma estiver como 1 e a data for a data atual
-    app.get('/almocos', (req: Request, res: Response) => {
+    appExpress.get('/almocos', (req: Request, res: Response) => {
         CadastroAlmoco.findAll({
         attributes: ['id','cod_funcionario'],
         where: {
@@ -174,7 +143,7 @@ interface Almoco {
         });
     });
 
-    app.get('/alm_ext', (req, res) => {
+    appExpress.get('/alm_ext', (req, res) => {
         AlmExt.findAll({
           attributes: ['id','nome_aext','quantidade_aext'],
           where: {
@@ -185,7 +154,7 @@ interface Almoco {
         });
       });
     
-      app.get('/reserva_xis', (req, res) => {
+      appExpress.get('/reserva_xis', (req, res) => {
         ReservaXis.findAll({
           attributes: ['id','nome_rx','quantidade_rx'],
           where: {
@@ -200,6 +169,3 @@ interface Almoco {
         console.log('Tabelas sincronizadas com sucesso');
       });
 
-app.listen(3000, () => {
-    console.log('server running');
-})
