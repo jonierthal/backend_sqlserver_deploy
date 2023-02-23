@@ -1,4 +1,4 @@
-import cron from 'cron';
+const cron = require('cron');
 import moment from 'moment-timezone';
 import { exec, ExecException } from 'child_process';
 
