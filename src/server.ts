@@ -1,6 +1,5 @@
-import express, {Request, Response} from 'express';
+import  {Request, Response} from 'express';
 import { appExpress } from './app';
-import { cron } from './cron';
 import { Sequelize } from 'sequelize';
 import moment from 'moment-timezone';
 
