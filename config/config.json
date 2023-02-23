@@ -1,22 +1,22 @@
 {
   "development": {
-    "username": "zyioqh_almocopcr",
+    "username": "vfqkzd_jonathae",
     "password": "!Joer1818",
-    "database": "zyioqh_jonathae",
+    "database": "vfqkzd_almocopcr",
     "host": "mysql-ag-br1-11.conteige.cloud",
     "dialect": "mysql"
   },
   "test": {
-    "username": "zyioqh_almocopcr",
+    "username": "vfqkzd_jonathae",
     "password": "!Joer1818",
-    "database": "zyioqh_jonathae",
+    "database": "vfqkzd_almocopcr",
     "host": "mysql-ag-br1-11.conteige.cloud",
     "dialect": "mssql"
   },
   "production": {
-    "username": "zyioqh_almocopcr",
+    "username": "vfqkzd_jonathae",
     "password": "!Joer1818",
-    "database": "zyioqh_jonathae",
+    "database": "vfqkzd_almocopcr",
     "host": "mysql-ag-br1-11.conteige.cloud",
     "dialect": "mysql"
   }
