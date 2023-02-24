@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Funcionario.hasMany(models.CadastroAlmoco,{
         foreignKey: 'cod_funcionario',
       });
+      Funcionario.hasMany(models.Reserva_Xis,{
+        foreignKey: 'cod_funcionario',
+      });
     }
   }
   Funcionario.init({

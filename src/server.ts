@@ -12,7 +12,6 @@ moment.tz.setDefault('America/Sao_Paulo');
 const agora = moment();
 const hoje = agora.format('YYYY-MM-DD HH:mm:ss');
 
-
 interface Almoco {
     cod_funcionario: number;
     funcionarios: {
@@ -20,6 +19,7 @@ interface Almoco {
     };
   }
 
+//REQUISIÇOES POST
     appExpress.post('/cadastro', async (req: Request, res: Response) => {
         console.log('POST');
         const cadastroAlmoco = req.body;
@@ -77,12 +77,12 @@ interface Almoco {
             console.log('CADASTRO', reservaXis)
             try{
                 const reserva_xis = await ReservaXis.create({
-                    nome_rx: reservaXis.nome_rx,
+                    cod_funcionario: reservaXis.cod_funcionario,
                     quantidade_rx: reservaXis.quantidade_rx,
                     data_rx: reservaXis.data_rx
                 });
                 res.json({
-                    nome_rx: reserva_xis.nome_rx,
+                    cod_funcionario: reserva_xis.cod_funcionario,
                     quantidade_rx: reserva_xis.quantidade_rx,
                     data_rx: reserva_xis.data_rx
                 });
@@ -92,7 +92,8 @@ interface Almoco {
             }
         }
     })
-    
+
+//REQUISIÇOES GET
     //retorna o id e nome do funcionário
   appExpress.get('/cadastro', async (req: Request, res: Response) => {
     console.log('GET');

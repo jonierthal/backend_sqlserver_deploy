@@ -10,17 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-    }
+      Reserva_Xis.belongsTo(models.Funcionario, {
+        foreignKey: 'cod_funcionario',
+      })    }
   }
   Reserva_Xis.init({
-    nome_rx: DataTypes.STRING,
+    cod_funcionario: DataTypes.INTEGER,
     quantidade_rx: DataTypes.INTEGER,
-    data_rx: DataTypes.DATEONLY
+    date_rx: DataTypes.DATEONLY
   }, {
     sequelize,
     modelName: 'Reserva_Xis',
-    //schema: 'dbo'
   });
   return Reserva_Xis;
 };

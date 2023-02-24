@@ -9,13 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nome_rx: {
-        type: Sequelize.STRING
+      cod_funcionario: {
+        type: Sequelize.INTEGER
       },
       quantidade_rx: {
         type: Sequelize.INTEGER
       },
-      data_rx: {
+      date_rx: {
         type: Sequelize.DATEONLY
       },
       createdAt: {
