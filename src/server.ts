@@ -136,10 +136,14 @@ interface Almoco {
     
       appExpress.get('/reserva_xis', (req, res) => {
         ReservaXis.findAll({
-          attributes: ['id','nome_rx','quantidade_rx'],
+          attributes: ['id','cod_funcionario','quantidade_rx'],
           where: {
             data_rx: hoje
           },
+          include: [{
+            model: Funcionario,
+            attributes: ['nome'],
+        }],
         }).then((reserva_xis: Almoco[]) => {
           res.send({reserva_xis});
         });
