@@ -144,6 +144,7 @@ interface Almoco {
             model: Funcionario,
             attributes: ['nome'],
         }],
+        raw: true
         }).then((reserva_xis: Almoco[]) => {
           res.send({reserva_xis});
         });
