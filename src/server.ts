@@ -138,7 +138,7 @@ interface Almoco {
         ReservaXis.findAll({
           attributes: ['id','cod_funcionario','quantidade_rx'],
           where: {
-            data_rx: hoje
+            date_rx: hoje
           },
           include: [{
             model: Funcionario,
