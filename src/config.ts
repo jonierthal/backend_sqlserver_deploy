@@ -8,11 +8,11 @@ const dbHost = process.env.DB_HOST;
 
 //Ligação com o banco de dados
 const sequelizeCon = new Sequelize(
-    dbName || "",
-    dbUser || "",
-    dbPass || "",
+    dbName || "aorung_almocopcr",
+    dbUser || "aorung_jonathae",
+    dbPass || "!Joer1818",
      {
-        host: dbHost || "",
+        host: dbHost || "mysql-ag-br1-11.conteige.cloud",
         dialect: 'mysql',
    });
 
