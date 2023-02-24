@@ -79,12 +79,12 @@ interface Almoco {
                 const reserva_xis = await ReservaXis.create({
                     cod_funcionario: reservaXis.cod_funcionario,
                     quantidade_rx: reservaXis.quantidade_rx,
-                    data_rx: reservaXis.data_rx
+                    date_rx: reservaXis.date_rx
                 });
                 res.json({
                     cod_funcionario: reserva_xis.cod_funcionario,
                     quantidade_rx: reserva_xis.quantidade_rx,
-                    data_rx: reserva_xis.data_rx
+                    date_rx: reserva_xis.date_rx
                 });
             }catch(error){
                 res.status(8000).json({message: 'Falha ao cadastrar'})
