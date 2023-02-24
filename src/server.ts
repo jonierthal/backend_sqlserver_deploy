@@ -93,7 +93,7 @@ interface Almoco {
         }
     })
 
-//REQUISIÇOES GET
+//REQUISIÇOES GET/
     //retorna o id e nome do funcionário
   appExpress.get('/cadastro', async (req: Request, res: Response) => {
     console.log('GET');
