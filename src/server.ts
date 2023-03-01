@@ -1,5 +1,7 @@
 import  {Request, Response} from 'express';
 import { appExpress } from './app';
+import { sequelizeCon } from './config';
+import { Op } from 'sequelize';
 import moment from 'moment-timezone';
 
 //classes
@@ -10,7 +12,7 @@ const ReservaXis = require('../models').Reserva_Xis
 
 moment.tz.setDefault('America/Sao_Paulo');
 const agora = moment();
-const hoje = agora.format('YYYY-MM-DD HH:mm:ss');
+const hoje = agora.format('YYYY-MM-DDTHH:mm:ssZ');
 
 interface Almoco {
     cod_funcionario: number;
@@ -149,5 +151,73 @@ interface Almoco {
           res.send({reserva_xis});
         });
       });
+
+      appExpress.get('/retorno_rel', async(req, res) => {
+        let startDate: string;
+        let endDate: string;
+
+        startDate = req.query.startDate as string;
+        endDate = req.query.endDate as string; 
+        
+        const startDateString = new Date(Date.parse(startDate));
+        const endDateString = new Date(Date.parse(endDate));
+
+        const funcionarios = await Funcionario.findAll({
+            attributes: [
+              'nome',
+              [sequelizeCon.fn('COUNT', sequelizeCon.col('CadastroAlmocos.id')), 'quantidade'],
+              'id'
+            ],
+            include: {
+              model: CadastroAlmoco,
+              where: {
+                data_cadastro: {
+                  [Op.between]: [startDate, endDate]
+                },
+                confirma: true
+              },
+              attributes: []
+            },
+            group: 'Funcionario.nome'
+          });
+
+        const almExts = await AlmExt.findAll({
+            where: {
+            date_aext: {
+                [Op.between]: [startDate, endDate]
+            }
+            },
+            attributes: ['nome_aext', 'quantidade_aext']
+          });
+          
+          const startDateFormatted = moment(startDateString).format('YYYY-MM-DD');
+          const endDateFormatted = moment(endDateString).format('YYYY-MM-DD');
+
+          console.log("Data não formatada", startDateString)
+          console.log("Data Formatada", startDateFormatted)
+
+        const total = await CadastroAlmoco.findOne({
+            attributes: [
+              [sequelizeCon.literal(
+                `COUNT(id) + COALESCE((
+                  SELECT SUM(quantidade_aext)
+                  FROM AlmExts
+                  WHERE date_aext BETWEEN '${startDateFormatted}' AND '${endDateFormatted}'
+                ), 0)
+                `), 'quantidade_total']
+              ],
+            where: {
+              data_cadastro: {
+                [Op.between]: [startDate, endDate]
+              },
+              confirma: true
+            }
+          });    
+
+          res.json({ funcionarios, almExts, total });
+          
+      });
+
+      
     
 
