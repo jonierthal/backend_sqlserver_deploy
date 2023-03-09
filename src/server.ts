@@ -22,28 +22,40 @@ interface Almoco {
   }
 
 //REQUISIÇOES POST
-    appExpress.post('/cadastro', async (req: Request, res: Response) => {
-        console.log('POST');
-        const cadastroAlmoco = req.body;
-        console.log(cadastroAlmoco);
-        if(cadastroAlmoco) {
-            console.log('CADASTRO')
-            try{
-                const cadastro = await CadastroAlmoco.create({
-                    cod_funcionario: cadastroAlmoco.codFuncionario,
-                    confirma: cadastroAlmoco.confirma,
-                    data_cadastro: cadastroAlmoco.dataCadastro
-                });
-                res.json({
-                    cod_funcionario: cadastro.cod_funcionario,
-                    confirma: cadastro.confirma
-                });
-            }catch(error){
-                res.status(8000).json({message: 'Falha ao cadastrar'})
-                console.log(error);
-            }
+appExpress.post('/cadastro', async (req: Request, res: Response) => {
+  console.log('POST');
+  const cadastroAlmoco = req.body;
+  console.log(cadastroAlmoco);
+  if (cadastroAlmoco) {
+    console.log('CADASTRO')
+    try {
+      const existingCadastro = await CadastroAlmoco.findOne({
+        where: {
+          cod_funcionario: cadastroAlmoco.codFuncionario,
+          data_cadastro: cadastroAlmoco.dataCadastro
         }
-    })
+      });
+
+      if (existingCadastro) {
+        res.status(400).json({ message: 'Este funcionário já efetuou a reserva do almoço'});
+      } else {
+        const cadastro = await CadastroAlmoco.create({
+          cod_funcionario: cadastroAlmoco.codFuncionario,
+          confirma: cadastroAlmoco.confirma,
+          data_cadastro: cadastroAlmoco.dataCadastro
+        });
+
+        res.json({
+          cod_funcionario: cadastro.cod_funcionario,
+          confirma: cadastro.confirma
+        });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Falha ao cadastrar' });
+      console.log(error);
+    }
+  }
+})
     
     appExpress.post('/alm_ext', async(req: Request, res: Response) => {
         console.log('POST');
