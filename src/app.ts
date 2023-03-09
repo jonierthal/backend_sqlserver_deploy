@@ -20,7 +20,7 @@ appExpress.use((req, res, next) => {
   });
 
   sequelizeCon.sync().then(() => {
-    appExpress.listen(3000, () => {
+    appExpress.listen(dbPort, () => {
       console.log('Servidor rodando na porta ' + dbPort + '!');
     });
   }).catch(error => {
