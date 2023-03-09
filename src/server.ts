@@ -90,16 +90,28 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
         if(reservaXis) {
             console.log('CADASTRO', reservaXis)
             try{
-                const reserva_xis = await ReservaXis.create({
+              const existingCadastro = await ReservaXis.findOne({
+                where: {
+                  cod_funcionario: reservaXis.cod_funcionario,
+                  date_rx: reservaXis.date_rx
+                }
+              });
+
+                if(existingCadastro) {
+                  res.status(400).json({ message: 'Este funcionário já efetuou a reserva do xis'});
+                } else {
+                  const reserva_xis = await ReservaXis.create({
                     cod_funcionario: reservaXis.cod_funcionario,
                     quantidade_rx: reservaXis.quantidade_rx,
                     date_rx: reservaXis.date_rx
                 });
+
                 res.json({
                     cod_funcionario: reserva_xis.cod_funcionario,
                     quantidade_rx: reserva_xis.quantidade_rx,
                     date_rx: reserva_xis.date_rx
                 });
+              }
             }catch(error){
                 res.status(8000).json({message: 'Falha ao cadastrar'})
                 console.log(error);
