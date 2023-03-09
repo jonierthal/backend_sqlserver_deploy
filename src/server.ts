@@ -135,7 +135,7 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
       const hoje = agora.format('YYYY-MM-DDTHH:mm:ssZ');
 
         CadastroAlmoco.findAll({
-        attributes: ['id','cod_funcionario'],
+        attributes: ['id'],
         where: {
            confirma: 1,
            data_cadastro: hoje
@@ -144,10 +144,11 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
             model: Funcionario,
             attributes: ['nome'],
         }],
+        order:[[Funcionario,'nome','ASC']],
         raw: true
         }).then((almocos: Almoco[]) => {
         const num_almocos = almocos.length;
-        res.send({num_almocos,almocos});
+        res.send({num_almocos,almocos,hoje});
         });
     });
 
@@ -161,6 +162,7 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
           where: {
            date_aext: hoje
           },
+          order:[['nome_aext','ASC']],
         }).then((alm_ext: Almoco[]) => {
           res.send({alm_ext});
         });
@@ -179,6 +181,7 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
             model: Funcionario,
             attributes: ['nome'],
         }],
+        order:[[Funcionario,'nome','ASC']],
         raw: true
         }).then((reserva_xis: Almoco[]) => {
           res.send({reserva_xis});
