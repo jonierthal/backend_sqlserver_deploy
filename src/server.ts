@@ -11,8 +11,6 @@ const AlmExt = require('../models').AlmExt
 const ReservaXis = require('../models').Reserva_Xis
 
 moment.tz.setDefault('America/Sao_Paulo');
-const agora = moment();
-const hoje = agora.format('YYYY-MM-DDTHH:mm:ssZ');
 
 interface Almoco {
     cod_funcionario: number;
@@ -132,6 +130,10 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
 
     //retorna id,cod_funcionario,nome quando o confirma estiver como 1 e a data for a data atual
     appExpress.get('/almocos', (req: Request, res: Response) => {
+
+      const agora = moment();
+      const hoje = agora.format('YYYY-MM-DDTHH:mm:ssZ');
+
         CadastroAlmoco.findAll({
         attributes: ['id','cod_funcionario'],
         where: {
@@ -150,6 +152,10 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
     });
 
     appExpress.get('/alm_ext', (req, res) => {
+
+      const agora = moment();
+      const hoje = agora.format('YYYY-MM-DDTHH:mm:ssZ');
+
         AlmExt.findAll({
           attributes: ['id','nome_aext','quantidade_aext'],
           where: {
@@ -161,6 +167,9 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
       });
     
       appExpress.get('/reserva_xis', (req, res) => {
+        const agora = moment();
+        const hoje = agora.format('YYYY-MM-DDTHH:mm:ssZ');
+
         ReservaXis.findAll({
           attributes: ['id','cod_funcionario','quantidade_rx'],
           where: {
