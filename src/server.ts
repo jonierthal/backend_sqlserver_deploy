@@ -135,7 +135,7 @@ appExpress.post('/cadastro', async (req: Request, res: Response) => {
       const hoje = agora.format('YYYY-MM-DDTHH:mm:ssZ');
 
         CadastroAlmoco.findAll({
-        attributes: ['id'],
+        attributes: ['id','cod_funcionario'],
         where: {
            confirma: 1,
            data_cadastro: hoje
